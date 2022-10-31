@@ -17,7 +17,7 @@ fn main() {
         children: RefCell::new(vec![]),
     });
 
-    println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+    // println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
 
     let branch = Rc::new(Node {
         value: 5,
@@ -26,5 +26,16 @@ fn main() {
     });
 
     *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
-    println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+    // println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
+    println!(
+        "branch strong = {}, weak = {}",
+        Rc::strong_count(&branch),
+        Rc::weak_count(&branch)
+    );
+
+    println!(
+        "branch strong = {}, weak = {}",
+        Rc::strong_count(&leaf),
+        Rc::weak_count(&leaf)
+    );
 }
